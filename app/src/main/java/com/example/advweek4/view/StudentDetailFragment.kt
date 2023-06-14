@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.advweek4.R
+import com.example.advweek4.databinding.FragmentStudentDetailBinding
+import com.example.advweek4.databinding.StudentListItemBinding
 import com.example.advweek4.model.Student
 import com.example.advweek4.util.loadImage
 import com.example.advweek4.viewmodel.DetailViewModel
@@ -20,6 +23,7 @@ import com.squareup.picasso.Picasso
 class StudentDetailFragment : Fragment() {
 
     private lateinit var viewModel: DetailViewModel
+    private lateinit var dataBinding: FragmentStudentDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,9 @@ class StudentDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_detail, container, false)
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_student_detail, container, false)
+
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,11 +65,13 @@ class StudentDetailFragment : Fragment() {
         val photoURl = view?.findViewById<ImageView>(R.id.imageView3)
 
         viewModel.studentLD.observe(viewLifecycleOwner, Observer {
-            ID?.setText(viewModel.studentLD.value?.id)
-            studentName?.setText(viewModel.studentLD.value?.name)
-            studentBOD?.setText(viewModel.studentLD.value?.dob)
-            studentPhone?.setText(viewModel.studentLD.value?.phone)
-            photoURl?.loadImage(viewModel.studentLD.value?.photoUrl)
+//            ID?.setText(viewModel.studentLD.value?.id)
+//            studentName?.setText(viewModel.studentLD.value?.name)
+//            studentBOD?.setText(viewModel.studentLD.value?.dob)
+//            studentPhone?.setText(viewModel.studentLD.value?.phone)
+//            photoURl?.loadImage(viewModel.studentLD.value?.photoUrl)
+
+            dataBinding.student = it
         })
     }
 }
